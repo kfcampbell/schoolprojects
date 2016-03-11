@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+<body>
+	<canvas id="canvas" height="400" width="400"></canvas>
+
+	<script>
+	var canvas = document.getElementById("canvas");
+	var context = canvas.getContext("2d");
+	canvas.addEventListener("mousedown", handleMouseDown);
+
+	var n = 4;
+	var size = Math.floor(canvas.height/n);
+
+	// define an array to store images
+	var img = []; // don't have to declare the size when making the array
+	var board = [];
+	var empty;
+	var selected;
+
+	loadImages();
+	setUpBoard();
+	drawBoard();
+
+	function setUpBoard()
+	{
+		// need to define the empty square here somewhere
+		for(var i = 0; i < n*n; i++)
+		{
+			board[i] = i;
+		}
+
+		// don't entirely understand this function yet
+		for(var size = n*n-1; size > 1; --size)
+		{
+			var r = Math.floor(Math.random()*(size+1)); // Math.random() gives a real random value between 0 and 1
+			var t = board[size];
+			board[size] = board[r];
+			board[r] = t;
+		}
+
+		// search for 15 here. 15 is the label of the empty. then assign empty the value of the empty tile.
+		for(var i = 0; i < n*n; i++)
+		{
+			if(board[i] == n*n-1)
+			{
+				empty = i;
+			}
+		}
+
+		// need to figure out which configurations are unsolvable. if unsolvable, just recurse until it is solvable probably.
+		checkInversions();
+		if(!checkInversions())
+		{
+			setUpBoard();
+		}
+		else
+		{
+			//alert("Puzzle is solvable!");
+		}
+	}
+
+	function checkInversions()
+	{
+		var inversionCount = 0;
+		for(var i = 0; i < n*n-1; i++) // maybe use board instead of n*n-1
+		{
+			for(var j = i+1; j < n*n; j++)
+			{
+				if(board[i] > board[j])
+				{
+					inversionCount++;
+				}
+			}
+		}
+		//alert("Inversion count: " + inversionCount);
+
+		// rules for determining solvability:
+		// if blank is on an even row, we need an odd number of inversions for solvability.
+		// if blank is on an odd row, we need an even number of inversions for solvability.
+		if((inversionCount%2 == 0) && ((empty == 12) || (empty == 13) || (empty == 14) || (empty == 15) || (empty == 4) || (empty == 5) || (empty == 6) || (empty == 7)))
+		{
+			return true;
+		}
+		else if((inversionCount%2 != 0) && ((empty == 0) || (empty == 1) || (empty == 2) || (empty == 3) || (empty == 8) || (empty == 9) || (empty == 10) || (empty == 11)))
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	// loads everything. kind of a pain.
+	function loadImages()
+	{
+		img[0] = document.createElement("IMG");
+		img[0].setAttribute("src", "http://terminus.scu.edu/~ntran/csci168/hw/hw3/tile_00.png");
+		img[0].setAttribute("width", size);
+		img[0].setAttribute("height", size);
+		//context.drawImage(img[0], 0, 0);
+
+		img[1] = document.createElement("IMG");
+		img[1].setAttribute("src", "http://terminus.scu.edu/~ntran/csci168/hw/hw3/tile_01.png");
+		img[1].setAttribute("width", size);
+		img[1].setAttribute("height", size);
+
+		img[2] = document.createElement("IMG");
+		img[2].setAttribute("src", "http://terminus.scu.edu/~ntran/csci168/hw/hw3/tile_02.png");
+		img[2].setAttribute("width", size);
+		img[2].setAttribute("height", size);
+
+		img[3] = document.createElement("IMG");
+		img[3].setAttribute("src", "http://terminus.scu.edu/~ntran/csci168/hw/hw3/tile_03.png");
+		img[3].setAttribute("width", size);
+		img[3].setAttribute("height", size);
+
+		img[4] = document.createElement("IMG");
+		img[4].setAttribute("src", "http://terminus.scu.edu/~ntran/csci168/hw/hw3/tile_04.png");
+		img[4].setAttribute("width", size);
+		img[4].setAttribute("height", size);
+
+		img[5] = document.createElement("IMG");
+		img[5].setAttribute("src", "http://terminus.scu.edu/~ntran/csci168/hw/hw3/tile_05.png");
+		img[5].setAttribute("width", size);
+		img[5].setAttribute("height", size);
+
+		img[6] = document.createElement("IMG");
+		img[6].setAttribute("src", "http://terminus.scu.edu/~ntran/csci168/hw/hw3/tile_06.png");
+		img[6].setAttribute("width", size);
+		img[6].setAttribute("height", size);
+
+		img[7] = document.createElement("IMG");
+		img[7].setAttribute("src", "http://terminus.scu.edu/~ntran/csci168/hw/hw3/tile_07.png");
+		img[7].setAttribute("width", size);
+		img[7].setAttribute("height", size);
+
+		img[8] = document.createElement("IMG");
+		img[8].setAttribute("src", "http://terminus.scu.edu/~ntran/csci168/hw/hw3/tile_08.png");
+		img[8].setAttribute("width", size);
+		img[8].setAttribute("height", size);
+
+		img[9] = document.createElement("IMG");
+		img[9].setAttribute("src", "http://terminus.scu.edu/~ntran/csci168/hw/hw3/tile_09.png");
+		img[9].setAttribute("width", size);
+		img[9].setAttribute("height", size);
+
+		img[10] = document.createElement("IMG");
+		img[10].setAttribute("src", "http://terminus.scu.edu/~ntran/csci168/hw/hw3/tile_10.png");
+		img[10].setAttribute("width", size);
+		img[10].setAttribute("height", size);
+
+		img[11] = document.createElement("IMG");
+		img[11].setAttribute("src", "http://terminus.scu.edu/~ntran/csci168/hw/hw3/tile_11.png");
+		img[11].setAttribute("width", size);
+		img[11].setAttribute("height", size);
+
+		img[12] = document.createElement("IMG");
+		img[12].setAttribute("src", "http://terminus.scu.edu/~ntran/csci168/hw/hw3/tile_12.png");
+		img[12].setAttribute("width", size);
+		img[12].setAttribute("height", size);
+
+		img[13] = document.createElement("IMG");
+		img[13].setAttribute("src", "http://terminus.scu.edu/~ntran/csci168/hw/hw3/tile_13.png");
+		img[13].setAttribute("width", size);
+		img[13].setAttribute("height", size);
+
+		img[14] = document.createElement("IMG");
+		img[14].setAttribute("src", "http://terminus.scu.edu/~ntran/csci168/hw/hw3/tile_14.png");
+		img[14].setAttribute("width", size);
+		img[14].setAttribute("height", size);
+
+		img[15] = document.createElement("IMG");
+		img[15].setAttribute("src", "http://terminus.scu.edu/~ntran/csci168/hw/hw3/tile_15.png");
+		img[15].setAttribute("width", size);
+		img[15].setAttribute("height", size);
+
+	}
+
+	// actually puts the images on the board
+	function drawBoard()
+	{
+		context.clearRect(0, 0, canvas.width, canvas.height);
+		for(var i = 0; i < n*n; ++i)
+		{
+			context.drawImage(img[board[i]], (i%n)*size, Math.floor(i/n)*size); // (i%n) gives col number
+		}
+	}
+
+	/* How to check if a move is legal
+	if empty square at 13, only 9, 12, and 14 can move.
+	13 ---> row 3, col 1. to get # rows: divide by 4. 13/4 = 3. to get cols: mod by 4. 13%4 = 1.
+	9/4 = 2. 9%4 = 1. 9 ---> row 2, col 1. possible moves can only differ by 1 in row or col.
+	*/
+	function isNeighbor(selected, empty)
+	{
+		var er = Math.floor(empty / n); // empty row
+		var ec = empty % n; // empty col
+
+		var sr = Math.floor(selected / n); // selected row
+		var sc = selected % n; // selected col
+
+		return(Math.abs(er - sr) + Math.abs(ec - sc) == 1);
+	}
+
+	// determine what tiles are clicked on
+	function handleMouseDown(event)
+	{
+		var mx = event.pageX - canvas.offsetLeft;
+		var my = event.pageY - canvas.offsetTop;
+
+		var row = Math.floor(my/size);
+		var col = Math.floor(mx/size);
+
+		selected = row*n + col; // gives the number 1->15 selected.
+		//alert("selected: " + selected + ". empty: " + empty);
+
+		// handle the actual tile shuffling on the click.
+		if(isNeighbor(selected, empty))
+		{
+			//alert("isNeighbor(" + selected + ", " + empty + ") selected");
+			board[empty] = board[selected];
+			board[selected] = n*n-1;
+			empty = selected;
+			drawBoard();
+		}
+
+		// old code to show which square was clicked on
+		/*var col = Math.floor(mx/100);
+		var row = Math.floor(my/100);
+		alert(row + ", " + col);*/
+	}
+
+	</script>
+
+</body>
+</html>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="keegancampbell.arttherapy" >
+
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission." />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <receiver android:name=".SmsReceiver" >
+                  android:exported="true"
+            <intent-filter>
+                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name=".UnlockReceiver"
+            android:exported="true"
+            android:label="widgetBroadcastReceiver" >
+            <intent-filter>
+                <action android:name="android.intent.action.USER_PRESENT" >
+                </action>
+            </intent-filter>
+
+            <!--
+                <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/demo_widget_provider" />
+            -->
+        </receiver>
+
+        <activity
+            android:name=".NotificationActivity"
+            android:label="@string/title_activity_notification" >
+        </activity>
+        <activity
+            android:name=".PaintActivity"
+            android:label="@string/title_activity_paint" >
+        </activity>
+    </application>
+
+</manifest>

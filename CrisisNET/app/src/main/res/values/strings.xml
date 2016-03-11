@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">CrisisNET</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_about">About this App</string>
+    <string name="title_activity_custom_adapter">CustomAdapter</string>
+    <string name="title_activity_uninstall">Uninstall</string>
+    <string name="title_activity_detail">DetailActivity</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="title_activity_web_view">WebView</string>
+    <string name="no_coords">"No coordinates are currently available for this story; Map View will not work correctly."</string>
+    <string name="no_body">This story does not yet have body content available.</string>
+    <string name="no_url">This story does not contain a URL.</string>
+    <string name="apikey">54d14bc043df675534f5bfed</string>
+    <string name="about_app">Thank you for using the CrisisNET app. Please email kfcampbell@scu.edu with any questions, concerns, or feedback.</string>
+
+</resources>
